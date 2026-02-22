@@ -35,7 +35,7 @@ async def play_hndlr(
 
     # 🎬 Only GIF (No Caption)
     loading_msg = await m.reply_animation(
-        animation="https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"
+        animation="loading.gif"
     )
 
     file = None
