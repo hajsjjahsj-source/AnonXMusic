@@ -1,8 +1,3 @@
-# Copyright (c) 2025 AnonymousX1025
-# Licensed under the MIT License.
-# This file is part of AnonXMusic
-
-
 from pyrogram import types
 
 from anony import app, config, lang
@@ -15,7 +10,7 @@ class Inline:
         self.ikb = types.InlineKeyboardButton
 
     def cancel_dl(self, text) -> types.InlineKeyboardMarkup:
-        return self.ikm([[self.ikb(text=text, callback_data=f"cancel_dl")]])
+        return self.ikm([[self.ikb(text=text, callback_data="cancel_dl")]])
 
     def controls(
         self,
@@ -25,6 +20,7 @@ class Inline:
         remove: bool = False,
     ) -> types.InlineKeyboardMarkup:
         keyboard = []
+
         if status:
             keyboard.append(
                 [self.ikb(text=status, callback_data=f"controls status {chat_id}")]
@@ -44,6 +40,7 @@ class Inline:
                     self.ikb(text="▢", callback_data=f"controls stop {chat_id}"),
                 ]
             )
+
         return self.ikm(keyboard)
 
     def help_markup(
@@ -89,7 +86,8 @@ class Inline:
             [
                 [
                     self.ikb(
-                        text=_text, callback_data=f"controls force {chat_id} {item_id}"
+                        text=_text,
+                        callback_data=f"controls force {chat_id} {item_id}",
                     )
                 ]
             ]
@@ -132,9 +130,11 @@ class Inline:
             ]
         )
 
+    # ✅ UPDATED START MENU (Source Removed)
     def start_key(
         self, lang: dict, private: bool = False
     ) -> types.InlineKeyboardMarkup:
+
         rows = [
             [
                 self.ikb(
@@ -142,23 +142,18 @@ class Inline:
                     url=f"https://t.me/{app.username}?startgroup=true",
                 )
             ],
-            [self.ikb(text=lang["help"], callback_data="help")],
+            [
+                self.ikb(text=lang["help"], callback_data="help")
+            ],
             [
                 self.ikb(text=lang["support"], url=config.SUPPORT_CHAT),
                 self.ikb(text=lang["channel"], url=config.SUPPORT_CHANNEL),
             ],
-        ]
-        if private:
-            rows += [
-                [
-                    self.ikb(
-                        text=lang["source"],
-                        url="https://github.com/AnonymousX1025/AnonXMusic",
-                    )
-                ]
+            [
+                self.ikb(text=lang["language"], callback_data="language")
             ]
-        else:
-            rows += [[self.ikb(text=lang["language"], callback_data="language")]]
+        ]
+
         return self.ikm(rows)
 
     def yt_key(self, link: str) -> types.InlineKeyboardMarkup:
